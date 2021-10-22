@@ -12,7 +12,8 @@ ProductDetail.setAppElement();
 const Products = () => {
   const dispatch = useDispatch();
   const allProductsData = useSelector((state) => state.Products);
-  const { loading, error, products, product } = allProductsData;
+  const { loading, error, products, isSearchActive, foundProducts } =
+    allProductsData;
 
   const [descModalIsOpen, setdescModalIsOpen] = useState(false);
 
@@ -22,18 +23,7 @@ const Products = () => {
   }, []);
 
   // SEARCH TITLE
-  const [inputSearch, setInputSearch] = useState("");
-
-  const handleChangeEdit = (e) => {
-    let data = { ...userEdit };
-    data[e.target.name] = e.target.value;
-    setUserEdit(data);
-  };
-
-  const handleChangeSearch = (e) => {
-    e.preventDefault();
-    setInputSearch(e.target.value);
-  };
+  const currentContacts = isSearchActive ? foundProducts : products;
 
   // Product Detail
   const [productDet, setProductDet] = useState({
@@ -128,45 +118,31 @@ const Products = () => {
           ? "Loading..."
           : error
           ? error.message
-          : products
-              .filter((product) => {
-                if (inputSearch === "") {
-                  return product;
-                } else if (
-                  product.title
-                    .toLowerCase()
-                    .includes(inputSearch.toLowerCase())
-                ) {
-                  return product;
-                }
-              })
-              .map((product) => (
-                <div className="card" key={product.id}>
-                  {/* LIST PRODUCT */}
-                  <a
-                    onClick={() =>
-                      setdescModalIsOpen(true) & handleEdit(product)
-                    }
-                  >
-                    <div className="card-image">
-                      <img
-                        src={product.image}
-                        alt="A image of product"
-                        width={100}
-                        height={140}
-                      />
-                    </div>
+          : currentContacts.map((product) => (
+              <div className="card" key={product.id}>
+                {/* LIST PRODUCT */}
+                <a
+                  onClick={() => setdescModalIsOpen(true) & handleEdit(product)}
+                >
+                  <div className="card-image">
+                    <img
+                      src={product.image}
+                      alt="A image of product"
+                      width={100}
+                      height={140}
+                    />
+                  </div>
 
-                    <div className="text">
-                      <p>{product.title}</p>
-                      <p>$ {product.price}</p>
-                      <p>
-                        {product.rating.rate} | {product.rating.count}
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              ))}
+                  <div className="text">
+                    <p>{product.title}</p>
+                    <p>$ {product.price}</p>
+                    <p>
+                      {product.rating.rate} | {product.rating.count}
+                    </p>
+                  </div>
+                </a>
+              </div>
+            ))}
       </section>
     </section>
   );

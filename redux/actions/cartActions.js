@@ -1,10 +1,4 @@
-import {
-  ADD_CART,
-  DECREMENT,
-  GET_CART,
-  INCREMENT,
-  REMOVE_ITEM,
-} from "../reducers/types";
+import { ADD_CART, DECREMENT, GET_CART, REMOVE_ITEM } from "../reducers/types";
 
 export const addCarts = (product) => async (dispatch) => {
   dispatch({

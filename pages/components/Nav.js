@@ -2,11 +2,15 @@ import Image from "next/dist/client/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/dist/client/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "../../styles/CartPage.module.scss";
+import { searchProducts } from "../../redux/actions/searchProducts";
+import { getProducts } from "../../redux/actions/productActions";
 
 const Nav = () => {
   const router = useRouter();
+
+  const dispatch = useDispatch();
 
   const allCartsData = useSelector((state) => state.Carts);
   const { cart } = allCartsData;
@@ -45,6 +49,12 @@ const Nav = () => {
     router.push("../Category/Electronics");
   };
 
+  //SEARCH PRODUCT
+  const handleSearch = (e) => {
+    const input = e.target.value;
+    dispatch(searchProducts({ value: input }));
+  };
+
   return (
     <div>
       <nav className="nav-bar">
@@ -59,6 +69,7 @@ const Nav = () => {
                 type="text"
                 placeholder="Search Product Here..."
                 className="input-search"
+                onChange={(e) => handleSearch(e)}
               />
             </form>
 

@@ -45,6 +45,7 @@ export default function cartReducer(state = initialState, action) {
         item.quantity--;
       }
       return { ...state };
+
     default:
       return state;
   }
