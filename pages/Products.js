@@ -4,7 +4,7 @@ import { getProducts } from "../redux/actions/productActions";
 import { addCarts } from "../redux/actions/cartActions";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faInfo, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import ProductDetail from "react-modal";
 
 ProductDetail.setAppElement();
@@ -21,9 +21,6 @@ const Products = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
-
-  // SEARCH TITLE
-  const currentContacts = isSearchActive ? foundProducts : products;
 
   // Product Detail
   const [productDet, setProductDet] = useState({
@@ -118,29 +115,47 @@ const Products = () => {
           ? "Loading..."
           : error
           ? error.message
-          : currentContacts.map((product) => (
+          : products.map((product) => (
               <div className="card" key={product.id}>
                 {/* LIST PRODUCT */}
-                <a
-                  onClick={() => setdescModalIsOpen(true) & handleEdit(product)}
-                >
-                  <div className="card-image">
-                    <img
-                      src={product.image}
-                      alt="A image of product"
-                      width={100}
-                      height={140}
-                    />
-                  </div>
 
-                  <div className="text">
-                    <p>{product.title}</p>
-                    <p>$ {product.price}</p>
-                    <p>
-                      {product.rating.rate} | {product.rating.count}
-                    </p>
-                  </div>
-                </a>
+                <div className="card-image">
+                  <img
+                    src={product.image}
+                    alt="A image of product"
+                    width={100}
+                    height={140}
+                  />
+                </div>
+
+                <div className="text">
+                  <p>{product.title}</p>
+                  <p>$ {product.price}</p>
+                  <p>
+                    {product.rating.rate} | {product.rating.count}
+                  </p>
+                </div>
+                <div className="atc-card">
+                  <button
+                    className="cart-btn-card"
+                    onClick={() =>
+                      dispatch(
+                        addCarts(product),
+                        alert("Berhasil menambahkan keranjang " + product.title)
+                      )
+                    }
+                  >
+                    Add to cart
+                  </button>
+
+                  <a
+                    onClick={() =>
+                      setdescModalIsOpen(true) & handleEdit(product)
+                    }
+                  >
+                    <button className="btn-detail">Detail Product</button>
+                  </a>
+                </div>
               </div>
             ))}
       </section>

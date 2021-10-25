@@ -133,45 +133,49 @@ const Products = () => {
           ? "Loading..."
           : error
           ? error.message
-          : products
-              .filter((product) => {
-                if (inputSearch === "") {
-                  return product;
-                } else if (
-                  product.title
-                    .toLowerCase()
-                    .includes(inputSearch.toLowerCase())
-                ) {
-                  return product;
-                }
-              })
-              .map((product) => (
-                <div className="card" key={product.id}>
-                  {/* LIST PRODUCT */}
+          : products.map((product) => (
+              <div className="card" key={product.id}>
+                {/* LIST PRODUCT */}
+
+                <div className="card-image">
+                  <img
+                    src={product.image}
+                    alt="A image of product"
+                    width={100}
+                    height={140}
+                  />
+                </div>
+
+                <div className="text">
+                  <p>{product.title}</p>
+                  <p>$ {product.price}</p>
+                  <p>
+                    {product.rating.rate} | {product.rating.count}
+                  </p>
+                </div>
+                <div className="atc-card">
+                  <button
+                    className="cart-btn-card"
+                    onClick={() =>
+                      dispatch(
+                        addCarts(product),
+                        alert("Berhasil menambahkan keranjang " + product.title)
+                      )
+                    }
+                  >
+                    Add to cart
+                  </button>
+
                   <a
                     onClick={() =>
                       setdescModalIsOpen(true) & handleEdit(product)
                     }
                   >
-                    <div className="card-image">
-                      <img
-                        src={product.image}
-                        alt="A image of product"
-                        width={100}
-                        height={140}
-                      />
-                    </div>
-
-                    <div className="text">
-                      <p>{product.title}</p>
-                      <p>$ {product.price}</p>
-                      <p>
-                        {product.rating.rate} | {product.rating.count}
-                      </p>
-                    </div>
+                    <button className="btn-detail">Detail Product</button>
                   </a>
                 </div>
-              ))}
+              </div>
+            ))}
       </section>
     </section>
   );

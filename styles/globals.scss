@@ -1,10 +1,12 @@
+$font-size-card: 15px;
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #96c8eb;
+  background-color: #ffdaae;
 }
 
 a {
@@ -38,15 +40,15 @@ a {
 }
 
 .card {
-  flex: 250px;
+  flex: 20%;
   margin: 14px;
   border-radius: 10px;
-  background-color: #ffdaae;
+  background-color: #ffffff;
   height: auto;
 }
 
 .card .text {
-  padding: 0 20px 20px;
+  padding: 0 20px;
 }
 
 .card-image {
@@ -68,6 +70,8 @@ a {
   border: 0.5px;
   padding-right: 40px;
   padding-left: 10px;
+  border: none;
+  outline: none;
 }
 
 // DETAIL PRODUCT MODAL
@@ -105,6 +109,44 @@ a {
   padding: 12px 30px;
   transition: all 0.5s;
   cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.atc-card {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 10px;
+}
+
+.cart-btn-card {
+  display: inline-block;
+  width: 100px;
+  background-color: #96c8eb;
+  border-radius: 10px;
+  font-size: $font-size-card;
+  color: #000;
+  text-decoration: none;
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn-detail {
+  display: inline-block;
+  width: 100px;
+  background-color: #ff5a5a;
+  border-radius: 10px;
+  font-size: $font-size-card;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+  transition: all 0.5s;
+  cursor: pointer;
+  border: none;
+  outline: none;
 }
 
 .cart-checkout {

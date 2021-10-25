@@ -5,7 +5,7 @@ import { useRouter } from "next/dist/client/router";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../../styles/CartPage.module.scss";
 import { searchProducts } from "../../redux/actions/searchProducts";
-import { getProducts } from "../../redux/actions/productActions";
+import { useState, useEffect } from "react";
 
 const Nav = () => {
   const router = useRouter();
@@ -50,10 +50,11 @@ const Nav = () => {
   };
 
   //SEARCH PRODUCT
-  const handleSearch = (e) => {
-    const input = e.target.value;
-    dispatch(searchProducts({ value: input }));
-  };
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    dispatch(searchProducts(search));
+  }, [search, dispatch]);
 
   return (
     <div>
@@ -69,7 +70,8 @@ const Nav = () => {
                 type="text"
                 placeholder="Search Product Here..."
                 className="input-search"
-                onChange={(e) => handleSearch(e)}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </form>
 
